@@ -24,27 +24,33 @@ public class TestConfig implements CommandLineRunner {
 
         // Lembra do construtor? (Nome, Telefone, Endereco, Bairro, Faculdade, Turno)
         // OBS: O ID (primeiro campo) não entra aqui porque o banco gera sozinho!
-        Student s1 = new Student(
-            "Mariazinha", 
-            999998888L, // O 'L' no final indica que é Long
-            "Rua das Flores, 123", 
-            "Centro", 
-            "Unitri", 
-            Turno.MANHA
-        );
 
-        Student s2 = new Student(
-            "Joaozinho", 
-            988887777L, 
-            "Av. Rondon, 500", 
-            "Santa Monica", 
-            "UFU", 
-            Turno.TARDE
-        );
+        if (studentRepository.count() == 0) {
+            Student s1 = new Student(
+                "Mariazinha", 
+                999998888L, // O 'L' no final indica que é Long
+                "Rua das Flores, 123", 
+                "Centro", 
+                "Unitri", 
+                Turno.MANHA
+            );
 
-        // Salvar no banco de dados
-        studentRepository.saveAll(Arrays.asList(s1, s2));
+            Student s2 = new Student(
+                "Joaozinho", 
+                988887777L, 
+                "Av. Rondon, 500", 
+                "Santa Monica", 
+                "UFU", 
+                Turno.TARDE
+            );
+
+            // Salvar no banco de dados
+            studentRepository.saveAll(Arrays.asList(s1, s2));
+            
+            System.out.println("Massa de dados de teste inserida com sucesso!");
+        } else {
+            System.out.println("O banco já tem dados, não vou fazer nada.");
+        }
         
-        System.out.println("Massa de dados de teste inserida com sucesso!");
     }
 }

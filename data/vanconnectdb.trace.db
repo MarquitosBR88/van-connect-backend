@@ -1,0 +1,12 @@
+2026-02-18 19:16:29.645726-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
+insert into student (bairro,endereco,faculdade,nome,telefone,turno,id) values (?,?,?,?,?,?,default) [42104-240]
+2026-02-18 19:17:05.388648-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
+insert into student (bairro,endereco,faculdade,nome,telefone,turno,id) values (?,?,?,?,?,?,default) [42104-240]
+2026-02-18 19:17:24.868670-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
+insert into student (bairro,endereco,faculdade,nome,telefone,turno,id) values (?,?,?,?,?,?,default) [42104-240]
+2026-02-18 19:17:42.003073-03:00 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "STUDENT" not found (this database is empty); SQL statement:
+insert into student (bairro,endereco,faculdade,nome,telefone,turno,id) values (?,?,?,?,?,?,default) [42104-240]
