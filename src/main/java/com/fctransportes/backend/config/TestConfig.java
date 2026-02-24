@@ -28,20 +28,22 @@ public class TestConfig implements CommandLineRunner {
         if (studentRepository.count() == 0) {
             Student s1 = new Student(
                 "Mariazinha", 
-                999998888L, // O 'L' no final indica que é Long
+                "999998888", // O 'L' no final indica que é Long
                 "Rua das Flores, 123", 
                 "Centro", 
                 "Unitri", 
-                Turno.MANHA
+                Turno.MANHA,
+                null
             );
 
             Student s2 = new Student(
                 "Joaozinho", 
-                988887777L, 
+                "988887777", 
                 "Av. Rondon, 500", 
                 "Santa Monica", 
                 "UFU", 
-                Turno.TARDE
+                Turno.TARDE,
+                null
             );
 
             // Salvar no banco de dados

@@ -12,19 +12,21 @@ public class Student {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String nome;
-    private long telefone;
+    private String telefone;
     private String endereco;
     private String bairro;
     private String faculdade;
     private Turno turno;
+    private Integer ordemRota;
 
-    public Student(String nome, long telefone, String endereco, String bairro, String faculdade, Turno turno) {
+    public Student(String nome, String telefone, String endereco, String bairro, String faculdade, Turno turno, Integer ordemRota) {
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
         this.bairro = bairro;
         this.faculdade = faculdade;
         this.turno = turno;
+        this.ordemRota = ordemRota;
     }
 
     public Student() {
@@ -43,11 +45,11 @@ public class Student {
         this.nome = nome;
     }
 
-    public long getTelefone() {
+    public String getTelefone() {
         return telefone;
     }
 
-    public void setTelefone(long telefone) {
+    public void setTelefone(String telefone) {
         this.telefone = telefone;
     }
 
@@ -81,6 +83,14 @@ public class Student {
 
     public void setTurno(Turno turno) {
         this.turno = turno;
+    }
+
+    public Integer getOrdemRota() {
+        return ordemRota;
+    }
+
+    public void setOrdemRota(Integer ordemRota) {
+        this.ordemRota = ordemRota;
     }
 
     @Override

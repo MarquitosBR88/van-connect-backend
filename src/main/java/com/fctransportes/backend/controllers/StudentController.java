@@ -52,6 +52,7 @@ public class StudentController {
         entity.setBairro(obj.getBairro());
         entity.setFaculdade(obj.getFaculdade());
         entity.setTurno(obj.getTurno());
+        entity.setOrdemRota(obj.getOrdemRota());
         return repository.save(entity);
     }
 
