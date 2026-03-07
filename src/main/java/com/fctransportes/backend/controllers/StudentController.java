@@ -1,8 +1,10 @@
 package com.fctransportes.backend.controllers;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,67 +14,63 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fctransportes.backend.entities.Student;
-import com.fctransportes.backend.entities.StudentRepository;
 import com.fctransportes.backend.entities.enums.Turno;
+import com.fctransportes.backend.services.StudentService;
 
 @RestController
 @RequestMapping(value = "/students")
 public class StudentController {
-    // A Injeção de Dependência (O Spring traz o repository pronto pra cá)
-    @Autowired
-    private StudentRepository repository;
 
-    // Método 1: GET (Buscar todos)
-    // Quando alguém acessar http://localhost:8080/students, roda isso:
+    @Autowired
+    private StudentService service;
+
     @GetMapping
-    public List<Student> findAll() {
-        return repository.findAll();
+    public ResponseEntity<List<Student>> findAll() {
+        List<Student> list = service.findAll();
+        return ResponseEntity.ok().body(list);
     }
 
-    // Método 2: POST (Salvar novo)
-    // Quando o React mandar um JSON pra cá, roda isso:
     @PostMapping
-    public Student insert(@RequestBody Student student) {
-        return repository.save(student);
+    public ResponseEntity<Student> insert(@RequestBody Student obj) {
+        obj = service.insert(obj);
+        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
+        return ResponseEntity.created(uri).body(obj);
     }
 
     @DeleteMapping(value = "/{id}")
-    public void delete(@PathVariable Integer id) {
-        repository.deleteById(id);
+    public ResponseEntity<Void> delete(@PathVariable Integer id) {
+        service.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
     @PutMapping(value = "/{id}")
-    public Student update(@PathVariable Integer id, @RequestBody Student obj) {
-        Student entity = repository.getReferenceById(id);
-        entity.setNome(obj.getNome());
-        entity.setTelefone(obj.getTelefone());
-        entity.setEndereco(obj.getEndereco());
-        entity.setBairro(obj.getBairro());
-        entity.setFaculdade(obj.getFaculdade());
-        entity.setTurno(obj.getTurno());
-        entity.setOrdemRota(obj.getOrdemRota());
-        return repository.save(entity);
+    public ResponseEntity<Student> update(@PathVariable Integer id, @RequestBody Student obj) {
+        obj = service.update(id, obj);
+        return ResponseEntity.ok().body(obj);
     }
-
+    
     @GetMapping(value = "/search")
-    public List<Student> searchByName(@RequestParam String nome) {
-        return repository.findByNomeContainingIgnoreCase(nome);
+    public ResponseEntity<List<Student>> searchByName(@RequestParam String nome) {
+        List<Student> obj = service.searchByName(nome);
+        return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/filter/turno")
-    public List<Student> searchByTurno(@RequestParam Turno turno) {
-        return repository.findByTurno(turno);
+    public ResponseEntity<List<Student>> searchByTurno(@RequestParam Turno turno) {
+        List<Student> obj = service.searchByTurno(turno);
+        return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/filter/faculdade")
-    public List<Student> searchByFaculdade(@RequestParam String faculdade) {
-        return repository.findByFaculdadeContainingIgnoreCase(faculdade);
+    public ResponseEntity<List<Student>> searchByFaculdade(@RequestParam String faculdade) {
+        List<Student> obj = service.searchByFaculdade(faculdade);
+        return ResponseEntity.ok().body(obj);
     }
 
-    @GetMapping(value = "/filter/bairro")
-    public List<Student> searchByBairro(@RequestParam String bairro) {
-        return repository.findByBairroContainingIgnoreCase(bairro);
+    public ResponseEntity<List<Student>> searchByBairro(@RequestParam String bairro) {
+        List<Student> obj = service.searchByFaculdade(bairro);
+        return ResponseEntity.ok().body(obj);
     }
+    
 }

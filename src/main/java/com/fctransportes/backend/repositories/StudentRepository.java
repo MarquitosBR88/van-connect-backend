@@ -1,10 +1,11 @@
-package com.fctransportes.backend.entities;
+package com.fctransportes.backend.repositories;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.fctransportes.backend.entities.Student;
 import com.fctransportes.backend.entities.enums.Turno;
 
 @Repository
