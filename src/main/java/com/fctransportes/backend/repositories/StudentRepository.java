@@ -12,6 +12,6 @@ import com.fctransportes.backend.entities.enums.Turno;
 public interface StudentRepository extends JpaRepository<Student, Integer> {   
     List<Student> findByNomeContainingIgnoreCase(String nome);
     List<Student> findByTurno(Turno turno);
-    List<Student> findByFaculdadeContainingIgnoreCase(String faculdade);
+    List<Student> findByFaculdade_NomeContainingIgnoreCase(String faculdade);
     List<Student> findByBairroContainingIgnoreCase(String bairro);
 }

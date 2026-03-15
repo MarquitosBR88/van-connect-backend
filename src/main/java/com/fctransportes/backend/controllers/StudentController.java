@@ -2,6 +2,7 @@ package com.fctransportes.backend.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fctransportes.backend.entities.Student;
+import com.fctransportes.backend.entities.dto.StudentDTO;
 import com.fctransportes.backend.entities.enums.Turno;
 import com.fctransportes.backend.services.StudentService;
 
@@ -28,9 +30,10 @@ public class StudentController {
     private StudentService service;
 
     @GetMapping
-    public ResponseEntity<List<Student>> findAll() {
+    public ResponseEntity<List<StudentDTO>> findAll() {
         List<Student> list = service.findAll();
-        return ResponseEntity.ok().body(list);
+        List<StudentDTO> listDto = list.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
     @PostMapping
@@ -53,24 +56,31 @@ public class StudentController {
     }
     
     @GetMapping(value = "/search")
-    public ResponseEntity<List<Student>> searchByName(@RequestParam String nome) {
-        List<Student> obj = service.searchByName(nome);
-        return ResponseEntity.ok().body(obj);
+    public ResponseEntity<List<StudentDTO>> searchByName(@RequestParam String nome) {
+        List<Student> list = service.searchByName(nome);
+        List<StudentDTO> listDto = list.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
+    }
+    
+    @GetMapping(value = "/search/turno")
+    public ResponseEntity<List<StudentDTO>> searchByTurno(@RequestParam Turno turno) {
+        List<Student> list = service.searchByTurno(turno);
+        List<StudentDTO> listDto = list.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
-    public ResponseEntity<List<Student>> searchByTurno(@RequestParam Turno turno) {
-        List<Student> obj = service.searchByTurno(turno);
-        return ResponseEntity.ok().body(obj);
+    @GetMapping(value = "/search/faculdade")
+    public ResponseEntity<List<StudentDTO>> searchByFaculdade(@RequestParam String faculdade) {
+        List<Student> list = service.searchByFaculdade(faculdade);
+        List<StudentDTO> listDto = list.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
 
-    public ResponseEntity<List<Student>> searchByFaculdade(@RequestParam String faculdade) {
-        List<Student> obj = service.searchByFaculdade(faculdade);
-        return ResponseEntity.ok().body(obj);
-    }
-
-    public ResponseEntity<List<Student>> searchByBairro(@RequestParam String bairro) {
-        List<Student> obj = service.searchByFaculdade(bairro);
-        return ResponseEntity.ok().body(obj);
+    @GetMapping(value = "/search/bairro")
+    public ResponseEntity<List<StudentDTO>> searchByBairro(@RequestParam String bairro) {
+        List<Student> list = service.searchByBairro(bairro);
+        List<StudentDTO> listDto = list.stream().map(StudentDTO::new).collect(Collectors.toList());
+        return ResponseEntity.ok().body(listDto);
     }
     
 }

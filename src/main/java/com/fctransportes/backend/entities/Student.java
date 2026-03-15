@@ -6,20 +6,24 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Student {
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
     private String nome;
     private String telefone;
     private String endereco;
     private String bairro;
-    private String faculdade;
+    @ManyToOne
+    @JoinColumn(name = "faculdade_id")
+    private Faculdade faculdade;
     private Turno turno;
     private Integer ordemRota;
 
-    public Student(String nome, String telefone, String endereco, String bairro, String faculdade, Turno turno, Integer ordemRota) {
+    public Student(String nome, String telefone, String endereco, String bairro, Faculdade faculdade, Turno turno, Integer ordemRota) {
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
@@ -69,11 +73,11 @@ public class Student {
         this.bairro = bairro;
     }
 
-    public String getFaculdade() {
+    public Faculdade getFaculdade() {
         return faculdade;
     }
 
-    public void setFaculdade(String faculdade) {
+    public void setFaculdade(Faculdade faculdade) {
         this.faculdade = faculdade;
     }
 
@@ -98,5 +102,28 @@ public class Student {
         return getNome() + " - Bairro " + getBairro() + " - " + getTurno();
     }
 
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Student other = (Student) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+
+    
     
 }

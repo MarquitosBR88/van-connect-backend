@@ -13,13 +13,11 @@ public class BackendApplication {
 		SpringApplication.run(BackendApplication.class, args);
 	}
 
-	// Dentro da classe BackendApplication, logo abaixo do main:
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				// Libera tudo (**) para qualquer origem
 				registry.addMapping("/**").allowedOrigins("*").allowedMethods("*");
 			}
 		};

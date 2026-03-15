@@ -47,7 +47,7 @@ public class StudentService {
     }
 
     public List<Student> searchByFaculdade(String faculdade) {
-        return repository.findByFaculdadeContainingIgnoreCase(faculdade);
+        return repository.findByFaculdade_NomeContainingIgnoreCase(faculdade);
     }
 
     public List<Student> searchByBairro(String bairro) {
