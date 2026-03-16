@@ -1,5 +1,5 @@
 # Estágio de construção (Build)
-FROM maven:3.9.6-eclipse-temurin-17 AS build
+FROM maven:3.9.6-eclipse-temurin-25 AS build
 COPY . .
 RUN mvn clean package -DskipTests
 
