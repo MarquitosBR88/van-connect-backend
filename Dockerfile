@@ -1,10 +1,15 @@
-# Estágio de construção (Build)
-FROM maven:3.9.6-eclipse-temurin-25 AS build
+# Estágio de construção e execução unificado (mais seguro para versões muito novas)
+FROM amazoncorretto:25
+
+# Instalar Maven manualmente
+RUN yum install -y maven
+
+WORKDIR /app
 COPY . .
+
+# Build do projeto
 RUN mvn clean package -DskipTests
 
-# Estágio de execução (Run)
-FROM eclipse-temurin:25-jre
-COPY --from=build target/*.jar app.jar
+# Expor a porta e rodar o JAR
 EXPOSE 8080
-ENTRYPOINT ["java", "-jar", "app.jar"]
+CMD ["java", "-jar", "target/backend-0.0.1-SNAPSHOT.jar"]
